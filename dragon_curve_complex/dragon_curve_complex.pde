@@ -21,7 +21,11 @@ void setup() {
     doubledragon();
   }
 
-  //draws all the moves
+  
+}
+
+void draw() {
+   //draws all the moves
   float redX=width/2;
   float redY=height/2;
   float blueX=width/2;
@@ -55,8 +59,9 @@ void setup() {
     line(oldGreenX, oldGreenY, greenX, greenY);
     stroke(#8A00FC); //purple
     line(oldPurpleX, oldPurpleY, purpleX, purpleY);
-  }
+  } 
 }
+
 void doubledragon() {
   //go through list backwards
   for (int i=redDragonCurve.size() - 1; i>=0; i--) {
