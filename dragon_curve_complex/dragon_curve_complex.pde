@@ -5,6 +5,11 @@ ArrayList<Move> greenDragonCurve=new ArrayList<Move>();
 ArrayList<Move> blueDragonCurve=new ArrayList<Move>();
 ArrayList<Move> purpleDragonCurve=new ArrayList<Move>();
 
+
+//True if a mouse button was pressed while no other button was.
+boolean firstMousePress = false;
+HScrollbar hs1, hs2;  // Two scrollbars
+
 void setup() {
   size(750, 750);
   redDragonCurve.add(new Move(5, 0));
@@ -20,8 +25,9 @@ void setup() {
   for (int i=0; i<17; i++) {
     doubledragon();
   }
-
   
+  hs1 = new HScrollbar(0, height/2-8, width, 16, 16);
+  hs2 = new HScrollbar(0, height/2+8, width, 16, 16);  
 }
 
 void draw() {
@@ -59,7 +65,17 @@ void draw() {
     line(oldGreenX, oldGreenY, greenX, greenY);
     stroke(#8A00FC); //purple
     line(oldPurpleX, oldPurpleY, purpleX, purpleY);
-  } 
+  }
+  
+  hs1.update();
+  hs2.update();
+  hs1.display();
+  hs2.display();
+  
+  //After it has been used in the sketch, set it back to false
+  if (firstMousePress) {
+    firstMousePress = false;
+  }
 }
 
 void doubledragon() {
@@ -95,5 +111,88 @@ class Move {
 
   Move rotated() {
     return new Move(-ydir, xdir);
+  }
+}
+
+
+void mousePressed() {
+  if (!firstMousePress) {
+    firstMousePress = true;
+  }
+}
+
+class HScrollbar {
+  int swidth, sheight;    // width and height of bar
+  float xpos, ypos;       // x and y position of bar
+  float spos, newspos;    // x position of slider
+  float sposMin, sposMax; // max and min values of slider
+  int loose;              // how loose/heavy
+  boolean over;           // is the mouse over the slider?
+  boolean locked;
+  float ratio;
+
+  HScrollbar (float xp, float yp, int sw, int sh, int l) {
+    swidth = sw;
+    sheight = sh;
+    int widthtoheight = sw - sh;
+    ratio = (float)sw / (float)widthtoheight;
+    xpos = xp;
+    ypos = yp-sheight/2;
+    spos = xpos + swidth/2 - sheight/2;
+    newspos = spos;
+    sposMin = xpos;
+    sposMax = xpos + swidth - sheight;
+    loose = l;
+  }
+
+  void update() {
+    if (overEvent()) {
+      over = true;
+    } else {
+      over = false;
+    }
+    if (firstMousePress && over) {
+      locked = true;
+    }
+    if (!mousePressed) {
+      locked = false;
+    }
+    if (locked) {
+      newspos = constrain(mouseX-sheight/2, sposMin, sposMax);
+    }
+    if (abs(newspos - spos) > 1) {
+      spos = spos + (newspos-spos)/loose;
+    }
+  }
+
+  float constrain(float val, float minv, float maxv) {
+    return min(max(val, minv), maxv);
+  }
+
+  boolean overEvent() {
+    if (mouseX > xpos && mouseX < xpos+swidth &&
+      mouseY > ypos && mouseY < ypos+sheight) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  void display() {
+    noStroke();
+    fill(204);
+    rect(xpos, ypos, swidth, sheight);
+    if (over || locked) {
+      fill(0, 0, 0);
+    } else {
+      fill(102, 102, 102);
+    }
+    rect(spos, ypos, sheight, sheight);
+  }
+
+  float getPos() {
+    // Convert spos to be values between
+    // 0 and the total width of the scrollbar
+    return spos * ratio;
   }
 }
