@@ -39,7 +39,7 @@ void draw() {
   //purpleDragonCurve.add(new Move(0,-5));
   //purpleDragonCurve.add(new Move(5,0));
   
-  for (int i=0; i<17; i++) {
+  for (int i=0; i<16; i++) {
     doubledragon(redDragonCurve);
   }
   
