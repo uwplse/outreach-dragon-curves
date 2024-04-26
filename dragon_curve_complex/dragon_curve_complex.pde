@@ -5,7 +5,7 @@
 
 //True if a mouse button was pressed while no other button was.
 boolean firstMousePress = false;
-HScrollbar hs1, hs2;  // Two scrollbars
+HScrollbar hs1, hs2, hs3;  // Two scrollbars
 
 void setup() {
   size(750, 750);
@@ -14,8 +14,13 @@ void setup() {
 
   
   
-  hs1 = new HScrollbar(0, height-25, width, 16, 16);
-  hs2 = new HScrollbar(0, height-50, width, 16, 16);  
+  hs1 = new HScrollbar(0, height-75, width, 16, 16);
+  hs2 = new HScrollbar(0, height-50, width, 16, 16);
+  hs3 = new HScrollbar(0, height-25, width, 16, 16);
+}
+
+float sliderPos(HScrollbar slider) {
+   return  ((slider.getPos()-(width/2))*10/width);
 }
 
 void draw() {
@@ -24,8 +29,9 @@ void draw() {
   ArrayList<Move> greenDragonCurve=new ArrayList<Move>();
   ArrayList<Move> blueDragonCurve=new ArrayList<Move>();
   ArrayList<Move> purpleDragonCurve=new ArrayList<Move>();
-  redDragonCurve.add(new Move(5+((hs1.getPos()-(width/2))*10/width), 0));
-  redDragonCurve.add(new Move(0, 5 + ((hs2.getPos()-(width/2))*10/width)));
+  redDragonCurve.add(new Move(5+sliderPos(hs1), 0));
+  redDragonCurve.add(new Move(0, 5 + sliderPos(hs2)));
+  redDragonCurve.add(new Move(0 + sliderPos(hs3), 0 + sliderPos(hs3)));
   //greenDragonCurve.add(new Move(0,5));
   //greenDragonCurve.add(new Move(-5,0));
   //blueDragonCurve.add(new Move(-5,0));
@@ -58,8 +64,10 @@ void draw() {
   
   hs1.update();
   hs2.update();
+  hs3.update();
   hs1.display();
   hs2.display();
+  hs3.display();
   
   //After it has been used in the sketch, set it back to false
   if (firstMousePress) {
