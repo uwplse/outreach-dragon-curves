@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>p5.js + dragon curves demo</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="demo.css">
+  <script src="p5.min.js"></script>
+  <script src="demo.js"></script>
+</head>
+
+<body>
+  <div class="grid-2">
+    <div id="canvas"></div>
+    <main class="container">
+      <header>
+        <h1>dragon curves</h1>
+      </header>
+
+      <hr>
+      <p>
+        this is a <em>live</em> demo - try changing the parameters and see how the curve changes!
+      </p>
+      <p>
+        (some text about dragon curves goes here)
+      </p>
+      <hr>
+      <label for="iters">Iterations: </label>
+      <input id="iters" type="number" value="10">
+      <br>
+      <label for="stroke-color">Curve color: </label>
+      <input id="stroke-color" type="color" value="#FF0000">
+      <br>
+      <label for="bg-color">Background color: </label>
+      <input id="bg-color" type="color" value="#FCFCFC">
+      <br>
+      <hr>
+      <p>
+        A dragon curve is made up of one or more <code>Move</code>s, separated by a new line. Moves take in two
+        parameters: a change in X, and a change in Y (separated by a comma).
+      </p>
+      <label for="code">Dragon Curve Code (try changing me!): </label>
+      <textarea id="code" rows="5">Move(5, 0)
+Move(0, 5)</textarea>
+      <div id="errors"></div>
+      <hr>
+      <footer>
+        <p>Made by <a href="https://uwplse.org">UW PLSE</a> with <a href="https://p5js.org">p5.js</a>.</p>
+      </footer>
+    </main>
+  </div>
+</body>
+
+</html>
