@@ -1,7 +1,7 @@
 "use strict";
 
 const VALID_MOVE_REGEX =
-  /^Move *\( *[0-9]+(\.[0-9]+)? *, * [0-9]+(\.[0-9]+)? *\)$/;
+  /^Move *\( *-?[0-9]+(\.[0-9]+)? *, *-?[0-9]+(\.[0-9]+)? *\)$/;
 
 window.onload = function () {
   recreate();
@@ -23,7 +23,8 @@ function recreate() {
     .value.trim()
     .split("\n")
     .map((s) => s.trim());
-  const iters = document.getElementById("iters").value;
+
+  const iters = Math.min(document.getElementById("iters").value, 20); // > 20 seems to cause some problems (exponential growth!)
   const strokeColor = document.getElementById("stroke-color").value;
   const bgColor = document.getElementById("bg-color").value;
 
