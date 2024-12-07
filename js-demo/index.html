@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="demo.css">
   <script src="p5.min.js"></script>
   <script src="demo.js"></script>
+  <link rel="stylesheet" href="highlight.min.css">
+  <script src="highlight.min.js"></script>
 </head>
 
 <body>
@@ -46,10 +48,22 @@ Move(0, 5)</textarea>
       <div id="errors"></div>
       <hr>
       <footer>
-        <p>Made by <a href="https://uwplse.org">UW PLSE</a> with <a href="https://p5js.org">p5.js</a>.</p>
+        <p>Made by <a href="https://uwplse.org">UW PLSE</a> with <a href="https://p5js.org">p5.js</a> and <a
+            href="https://highlightjs.org/">highlight.js</a>.</p>
       </footer>
     </main>
   </div>
+  <hr>
+  <div class="px-2">
+    <h2>Generated <a href="https://p5js.org">p5.js</a> code</h2>
+    <div>
+      This powers what you see, but reacts to the changes you make! You can run this code in the <a
+        href="https://editor.p5js.org/">p5.js sandbox</a>, or learn more about p5.js through <a
+        href="https://p5js.org/tutorials/">p5.js tutorials</a>.
+      <pre><code class="language-js" id="p5-js-code"></code></pre>
+    </div>
+  </div>
+
 </body>
 
 </html>
