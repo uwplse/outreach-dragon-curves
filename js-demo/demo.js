@@ -10,6 +10,7 @@ window.onload = function () {
   document.getElementById("iters").oninput = recreate;
   document.getElementById("bg-color").oninput = recreate;
   document.getElementById("stroke-color").oninput = recreate;
+  document.getElementById("stroke-width").oninput = recreate;
 };
 
 function recreate() {
@@ -25,11 +26,19 @@ function recreate() {
     .map((s) => s.trim());
 
   const iters = Math.min(document.getElementById("iters").value, 20); // > 20 seems to cause some problems (exponential growth!)
+  const strokeWidth = document.getElementById("stroke-width").value;
   const strokeColor = document.getElementById("stroke-color").value;
   const bgColor = document.getElementById("bg-color").value;
 
   if (moves.length > 0 && moves.every((line) => VALID_MOVE_REGEX.test(line))) {
-    createDragonCurve(moves, iters, strokeColor, bgColor, dimension);
+    createDragonCurve(
+      moves,
+      iters,
+      strokeWidth,
+      strokeColor,
+      bgColor,
+      dimension
+    );
     document.getElementById("p5-js-code").innerHTML = movesToJs(
       moves,
       iters,
@@ -46,7 +55,14 @@ function recreate() {
   }
 }
 
-function createDragonCurve(moves, iters, strokeColor, bgColor, dimension) {
+function createDragonCurve(
+  moves,
+  iters,
+  strokeWidth,
+  strokeColor,
+  bgColor,
+  dimension
+) {
   document.getElementById("canvas").innerHTML = "";
   document.getElementById("errors").innerHTML = "";
 
@@ -74,6 +90,7 @@ function createDragonCurve(moves, iters, strokeColor, bgColor, dimension) {
         currentY += curve[i].yDir;
 
         p.stroke(color);
+        p.strokeWeight(strokeWidth);
         p.line(oldX, oldY, currentX, currentY);
       }
     }
