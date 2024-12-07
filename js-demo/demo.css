@@ -44,6 +44,10 @@ code {
   padding: 1rem;
 }
 
+.px-2 {
+  padding: 2rem;
+}
+
 #code {
   margin: 1rem 0;
   width: 100%;
